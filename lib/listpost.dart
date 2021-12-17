@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+
 import 'package:frontend_application/cardpost.dart';
 import 'package:frontend_application/post.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,7 @@ class _ListPostState extends State<ListPost> {
   Map data = {};
   List postsData = [];
   getPosts() async {
-    http.Response response = await http.get(
+    var response = await http.get(
         Uri.parse('https://app-backend-vilcarana.herokuapp.com/posts/listar'));
     var resList = json.decode(response.body) as List;
     setState(() {
@@ -46,24 +47,14 @@ class _ListPostState extends State<ListPost> {
                   key: ObjectKey("alaos"),
                   //child: Cardposts(post[index]),
                   child: Card(
-                    child: Column(
-                      children: <Widget>[
-                        Row(children: <Widget>[
-                          Text("${postsData[index]["title"]}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
-                          Spacer(),
-                        ]),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "${postsData[index]["description"]}",
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                      child: Column(children: [
+                    Text("${postsData[index]["title"]}",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold)),
+                    Text(
+                      "${postsData[index]["description"]}",
+                    )
+                  ])),
                   onDismissed: (direction) {
                     setState(() {
                       postsData.removeAt(index);
@@ -71,6 +62,10 @@ class _ListPostState extends State<ListPost> {
                   },
                 );
               }),
+          FloatingActionButton(
+            onPressed: () {},
+            tooltip: "Add Post",
+          )
         ],
       ),
     ));

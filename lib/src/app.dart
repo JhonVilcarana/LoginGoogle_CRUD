@@ -1,28 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_application/login.dart';
-import 'package:frontend_application/sign_in.dart';
-import 'package:provider/provider.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  static final String title = 'MainPage';
-
-  @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => GoogleSignIndProvider(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: title,
-          theme: ThemeData.dark().copyWith(accentColor: Colors.indigo),
-          home: HomePage(),
-        ),
-      );
-}
+import '../login.dart';
+import '../signup.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -93,40 +73,21 @@ class HomePage extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      final provider = Provider.of<GoogleSignIndProvider>(
+                      Navigator.push(
                           context,
-                          listen: false);
-                      provider.googleLogin();
+                          MaterialPageRoute(
+                              builder: (context) => SignUpPage()));
                     },
                     color: Color(0xFFFFFFFF),
                     shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.pink.shade900),
                         borderRadius: BorderRadius.circular(50)),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            child: Image(
-                              image: AssetImage('assets/google.png'),
-                              width: 10,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 8,
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Sing Up with Google",
-                                style: TextStyle(
-                                  color: Colors.pink.shade900,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                ),
-                              )),
-                        ),
-                      ],
+                    child: Text(
+                      "Sing Up with Google",
+                      style: TextStyle(
+                          color: Colors.pink.shade900,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
                     ),
                   )
                 ],
